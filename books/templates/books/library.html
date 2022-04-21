@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <title>Books App</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body style="background-color: #34495e">
+    <nav class="navbar navbar-light d-flex justify-content-around" style="background-color: #bdc3c7">
+      <a
+        href="{% url 'upload-book' %}"
+        class="navbar-link btn-lg btn btn-success"
+        style="color: #000000; "
+        >Add Books</a
+      >
+    </nav>
+    <br />
+    {% block content %}
+    <div class="card-columns d-flex justify-content-around">
+      {% for book in shelf %}
+      <div class="card" style="width: 18rem">
+        <img class="card-img-top h-50" src="{{ book.image.url }}" />
+        <div class="card-body">
+          <h5 class="card-title">Book Name: {{ book.name }}</h5>
+          <p class="card-text">Price: {{ book.price }}</p>
+          <p class="card-text">Appropriate: {{ book.appropriate }}</p>
+          <p class="card-text">Published at: {{ book.publish_date}}</p>
+          <p class="card-text">Added to site at: {{ book.add_to_site_at}}</p>
+          <div class="card-footer bg-transparent border-dark">
+            <p class="card-title">Author: {{book.author}}</p>
+            <center>
+              <a
+                href="update/{{book.id}}"
+                class="btn btn-warning"
+                id="{{book.id}}"
+                >edit</a
+              >
+              <a
+                href="delete/{{book.id}}"
+                class="btn btn-danger"
+                id="{{book.id}}"
+                >delete</a
+              >
+            </center>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endblock %}
+  </body>
+</html>
